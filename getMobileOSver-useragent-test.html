@@ -1,0 +1,117 @@
+<html>
+<head>
+<title>getMobileOS USER_AGENT OS version test</title>
+<style>
+body { background-color:#202020; font-family:monospace; color:lightgreen; }
+</style>
+</head>
+<body>
+<script>
+
+//
+// getMobileOS
+//
+//   written by Jim Bergman
+//   PUBLIC DOMAIN
+//
+// v1.00 - 2012-Nov-24
+
+var mobileOS;    // will either be iOS, Android or unknown
+var mobileOSver; // this is a string, use Number(mobileOSver) to convert
+
+function getMobileOS( opt )
+{
+  var ua = (opt)? opt : navigator.userAgent;  // modified this to accept test string
+  var uaindex;
+
+  // determine OS
+  if ( ua.match(/iPad/i) || ua.match(/iPhone/i) )
+  {
+    mobileOS = 'iOS';
+    uaindex  = ua.indexOf( 'OS ' );
+  }
+  else if ( ua.match(/Android/i) )
+  {
+    mobileOS = 'Android';
+    uaindex  = ua.indexOf( 'Android ' );
+  }
+  else
+  {
+    mobileOS = 'unknown';
+  }
+
+  // determine version
+  if ( mobileOS === 'iOS'  &&  uaindex > -1 )
+  {
+    mobileOSver = ua.substr( uaindex + 3, 3 ).replace( '_', '.' );
+  }
+  else if ( mobileOS === 'Android'  &&  uaindex > -1 )
+  {
+    mobileOSver = ua.substr( uaindex + 8, 3 );
+  }
+  else
+  {
+    mobileOSver = 'unknown';
+  }
+}
+
+function testUAstring( opt )
+{
+  getMobileOS( opt );
+  document.write( "<p>" + opt + "<br>" );
+  document.write( "OS: " + mobileOS + " ver: " + mobileOSver + "<br>" );
+
+  if ( mobileOS === "iOS" )
+  {
+    if ( Number( mobileOSver.charAt(0) ) >= 5 )
+    {
+      document.write( "iOS is version 5 or greater<br>");
+    }
+  }
+  else if ( mobileOS === "Android" )
+  {
+    if ( Number( mobileOSver.charAt(0) ) >= 4 )
+    {
+      document.write( "Android is version 4 or greater<br>");
+    }
+  }
+  else
+  {
+    document.write( "Unknown mobile OS!<br>");
+  }
+}
+
+document.write( "YOUR USER AGENT STRING:<br>");
+testUAstring( navigator.userAgent );
+testUAstring( "Mozilla/5.0 (iPad; CPU OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A405" );
+testUAstring( "Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B176" );
+testUAstring( "Mozilla/5.0 (iPad; CPU OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206" );
+testUAstring( "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A403" );
+testUAstring( "Mozilla/5.0 (iPad; CPU OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523" );
+testUAstring( "Mozilla/5.0 (iPad; U; CPU OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Mobile/8J2" );
+testUAstring( "Mozilla/5.0 (iPad; U; CPU OS 4_3_5 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Mobile/8L1" );
+testUAstring( "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A405" );
+testUAstring( "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B176" );
+testUAstring( "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206" );
+testUAstring( "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A403" );
+testUAstring( "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523" );
+testUAstring( "Mozilla/5.0 (iPod; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206" );
+testUAstring( "Mozilla/5.0 (iPod; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 2.3.6; en-us; T-Mobile myTouch Build/HuaweiU8680) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 2.3.6; ru-ru; GT-I8160 Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.3; en-us; HTC Glacier Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.3; en-us; HTC PH39100 Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.3; en-us; SAMSUNG-SGH-I777 Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.3; es-us; HTC_Amaze_4G Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; C5155 Build/IML77) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; SAMSUNG-SGH-I747 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; SCH-I200 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; SGH-T999 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; SPH-D710 Build/IMM76I) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.4; es-es; HTC Sensation Build/IMM76L; CyanogenMod-9.1.0) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 4.1.1; en-us; Galaxy Nexus Build/JRO03U) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 4.1.1; en-us; SPH-L710 Build/JRO03L) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
+testUAstring( "Mozilla/5.0 (Linux; U; Android 4.2; en-us; Nexus 7 Build/JOP40C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30" );
+testUAstring( "Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.1 (KHTML, like Gecko) Ubuntu/10.04 Chromium/14.0.808.0 Chrome/14.0.808.0 Safari/535.1" );
+
+</script>
