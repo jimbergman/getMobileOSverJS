@@ -1,8 +1,9 @@
 //
 // getMobileOSver
-//
 //   written by Jim Bergman
 //   PUBLIC DOMAIN
+//
+//  https://github.com/jimbergman/getMobileOSver.js
 //
 // v1.00 - 2012-Nov-24
 // v1.10 - 2014-Oct-17 - recognizes iPod and refactored
