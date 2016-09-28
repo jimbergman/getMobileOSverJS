@@ -1,15 +1,16 @@
 <html>
 <head>
-<title>getMobileOSver USER_AGENT OS version test v1.10 - 2014-Oct-17</title>
+<title>getMobileOSver USER_AGENT OS version test v1.20 - 2016-Sep-28</title>
 <style>
-body { background-color:#202020; font-family:monospace; color:lightgreen; }
+  body { background-color:#202020; font-family:monospace; color:darkseagreen; }
 </style>
-<script type="text/javascript" src="getMobileOSver.min.js"></script>
+<script src="getMobileOSver.min.js"></script>
 </head>
 <body>
 <script>
 
 function testUAstring( opt ) {
+
   if ( opt ) {
     getMobileOS.init(opt);
   }
@@ -17,66 +18,112 @@ function testUAstring( opt ) {
     getMobileOS.init();
     opt = navigator.userAgent;
   }
-  document.write( "<p>" + opt + "<br>" );
-  document.write( "OS: " + getMobileOS.os + " ver: " + getMobileOS.ver + " device: " + getMobileOS.device );
 
-  if ( getMobileOS.os === "ios" ) {
-    if ( Number( getMobileOS.ver.charAt(0) ) >= 6 ) {
-      document.write( " (iOS is version 6 or greater)");
-    }
-  }
-  else if ( getMobileOS.os === "android" ) {
-    if ( Number( getMobileOS.ver ) >= 4.4 ) {
-      document.write( " (Android is version 4.4 (KitKat) or greater)");
-    }
+  document.write( '<p>' + opt + '<br>' );
+
+  if ( getMobileOS.os ) {
+    document.write( 'device="' + getMobileOS.device + '" os="' + getMobileOS.os + '" ver="' + getMobileOS.ver + '" ( major=' + getMobileOS.major + ' minor=' + getMobileOS.minor + ' patch=' + getMobileOS.patch + ' ) &bullet; ' );
+    document.write( 'flags:' + (getMobileOS.android?' .android':'') + (getMobileOS.ios?' .ios':'') + (getMobileOS.ipad?' .ipad':'') + (getMobileOS.ipod?' .ipod':'') + (getMobileOS.iphone?' .iphone':'') + (getMobileOS.windowsphone?' .windowsphone':'') );
   }
   else {
-    document.write( " !!! unknown mobile OS !!!");
+    document.write( ' !!! unknown mobile OS !!!' );
   }
-  document.write( "<br>" );
+
+  //
+  // some example tests for specific versions
+  //
+  if ( getMobileOS.ios ) {
+    if ( getMobileOS.major >= 10  &&  getMobileOS.minor >= 0  &&  getMobileOS.patch >= 1 ) {
+      document.write( ' <span style="color:white">(iOS is version 10.0.1 or greater)</span>' );
+    }
+  }
+  else if ( getMobileOS.android ) {
+    if ( getMobileOS.major >= 7 ) {
+      document.write( ' <span style="color:white">(Android is version 7 (Nougat) or greater)</span>' );
+    }
+  }
+  else if ( getMobileOS.windowsphone ) {
+    if ( getMobileOS.major >= 10 ) {
+      document.write( ' <span style="color:white">(Windows Phone is version 10 or greater)</span>' );
+    }
+  }
+
+  document.write( '<br>' );
 }
 
-document.write( "YOUR USER AGENT STRING:<br>");
+document.write( '<h2>YOUR BROWSER USER AGENT STRING:</h2>' );
 testUAstring();
-document.write( "<br>TEST USER AGENT STRINGS:<br>");
-testUAstring( "Mozilla/5.0 (iPad; U; CPU OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Mobile/8J2" );
-testUAstring( "Mozilla/5.0 (iPad; U; CPU OS 4_3_5 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Mobile/8L1" );
-testUAstring( "Mozilla/5.0 (iPad; CPU OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A405" );
-testUAstring( "Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B176" );
-testUAstring( "Mozilla/5.0 (iPad; CPU OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206" );
-testUAstring( "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A403" );
-testUAstring( "Mozilla/5.0 (iPad; CPU OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523" );
-testUAstring( "Mozilla/5.0 (iPad; CPU OS 7_1_2 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D257 (375606336)" );
-testUAstring( "Mozilla/5.0 (iPad; CPU OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12A405 (374751968)" );
-testUAstring( "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A405" );
-testUAstring( "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B176" );
-testUAstring( "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206" );
-testUAstring( "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A403" );
-testUAstring( "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523" );
-testUAstring( "Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D257 (383425840)" );
-testUAstring( "Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12A365 (401099904)" );
-testUAstring( "Mozilla/5.0 (iPod; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206" );
-testUAstring( "Mozilla/5.0 (iPod; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 2.3.6; en-us; T-Mobile myTouch Build/HuaweiU8680) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 2.3.6; ru-ru; GT-I8160 Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.3; en-us; HTC Glacier Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.3; en-us; HTC PH39100 Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.3; en-us; SAMSUNG-SGH-I777 Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.3; es-us; HTC_Amaze_4G Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; C5155 Build/IML77) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; SAMSUNG-SGH-I747 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; SCH-I200 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; SGH-T999 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; SPH-D710 Build/IMM76I) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.0.4; es-es; HTC Sensation Build/IMM76L; CyanogenMod-9.1.0) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.1.1; en-us; Galaxy Nexus Build/JRO03U) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.1.1; en-us; SPH-L710 Build/JRO03L) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.2; en-us; Nexus 7 Build/JOP40C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; U; Android 4.3; en-us; SGH-T889 Build/JSS15J) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30" );
-testUAstring( "Mozilla/5.0 (Linux; Android 4.4.4; Nexus 4 Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36" );
-testUAstring( "Mozilla/5.0 (Linux; Android 4.4.3; HTC One Build/KTU84L) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36" );
-// browser test string
-testUAstring( "Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.1 (KHTML, like Gecko) Ubuntu/10.04 Chromium/14.0.808.0 Chrome/14.0.808.0 Safari/535.1" );
+
+document.write( '<br><hr><h2>IOS TEST USER AGENT STRINGS:</h2>' );
+testUAstring( 'Mozilla/5.0 (iPad; U; CPU OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Mobile/8J2' );
+testUAstring( 'Mozilla/5.0 (iPad; U; CPU OS 4_3_5 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Mobile/8L1' );
+testUAstring( 'Mozilla/5.0 (iPad; CPU OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A405' );
+testUAstring( 'Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B176' );
+testUAstring( 'Mozilla/5.0 (iPad; CPU OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206' );
+testUAstring( 'Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A403' );
+testUAstring( 'Mozilla/5.0 (iPad; CPU OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523' );
+testUAstring( 'Mozilla/5.0 (iPad; CPU OS 7_1_2 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D257 (375606336)' );
+testUAstring( 'Mozilla/5.0 (iPad; CPU OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12A405 (374751968)' );
+testUAstring( 'Mozilla/5.0 (iPad; CPU OS 9_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13C75 (399889184)' );
+testUAstring( 'Mozilla/5.0 (iPad; CPU OS 9_3_5 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13G36 (349826320)' );
+testUAstring( 'Mozilla/5.0 (iPad; CPU OS 10_0 like Mac OS X) AppleWebKit/602.1.32 (KHTML, like Gecko) Mobile/14A5261v (4300256624)' );
+testUAstring( 'Mozilla/5.0 (iPad; CPU OS 10_0_1 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Mobile/14A403 (4300241088)' );
+testUAstring( 'Mozilla/5.0 (iPad; CPU OS 10_0_2 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Mobile/14A456 (4299180256)' );
+document.write( '<hr>' );
+
+testUAstring( 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A405' );
+testUAstring( 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B176' );
+testUAstring( 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206' );
+testUAstring( 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A403' );
+testUAstring( 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523' );
+testUAstring( 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_2 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Mobile/11D257 (383425840)' );
+testUAstring( 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12A365 (401099904)' );
+testUAstring( 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_5 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13G36 (5853477296)' );
+testUAstring( 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_0 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Mobile/14A5345a (4298161856)' );
+testUAstring( 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_1 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Mobile/14A403 (4299204528)' );
+document.write( '<hr>' );
+
+testUAstring( 'Mozilla/5.0 (iPod; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206' );
+testUAstring( 'Mozilla/5.0 (iPod; CPU iPhone OS 6_0_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10A523' );
+testUAstring( 'Mozilla/5.0 (iPod; CPU iPhone OS 6_1_6 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10B500 (534207040)' );
+testUAstring( 'Mozilla/5.0 (iPod touch; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) FxiOS/1.0 Mobile/12F69 Safari/600.1.4' ); // Firefox OS works too
+
+document.write( '<br><hr><h2>ANDROID TEST USER AGENT STRINGS:</h2>');
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 2.3.6; en-us; T-Mobile myTouch Build/HuaweiU8680) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 2.3.6; ru-ru; GT-I8160 Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.0.3; en-us; HTC Glacier Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.0.3; en-us; HTC PH39100 Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.0.3; en-us; SAMSUNG-SGH-I777 Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.0.3; es-us; HTC_Amaze_4G Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; C5155 Build/IML77) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; SAMSUNG-SGH-I747 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; SCH-I200 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; SGH-T999 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; SPH-D710 Build/IMM76I) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.0.4; es-es; HTC Sensation Build/IMM76L; CyanogenMod-9.1.0) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.1.1; en-us; Galaxy Nexus Build/JRO03U) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.1.1; en-us; SPH-L710 Build/JRO03L) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.2; en-us; Nexus 7 Build/JOP40C) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; U; Android 4.3; en-us; SGH-T889 Build/JSS15J) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' );
+testUAstring( 'Mozilla/5.0 (Linux; Android 4.4.3; HTC One Build/KTU84L) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36' );
+testUAstring( 'Mozilla/5.0 (Linux; Android 4.4.4; Nexus 5 Build/KTU84P) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36' );
+testUAstring( 'Mozilla/5.0 (Linux; Android 5.0; ASUS_T00F Build/LRX21V) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile Safari/537.36' );
+testUAstring( 'Mozilla/5.0 (Linux; Android 5.1.1; SM-N920I Build/LMY47X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.98 Mobile Safari/537.36' );
+testUAstring( 'Mozilla/5.0 (Linux; Android 6.0; HTC_M9u Build/MRA58K; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.98 Mobile Safari/537.36' );
+testUAstring( 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 6 Build/MOB30W; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.98 Mobile Safari/537.36' );
+testUAstring( 'Mozilla/5.0 (Linux; Android 6.0.1; SM-G900F Build/MMB29M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.98 Mobile Safari/537.36' );
+testUAstring( 'Mozilla/5.0 (Linux; Android 7.0; Nexus 5X Build/NRD90S; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.98 Mobile Safari/537.36' );
+testUAstring( 'Mozilla/5.0 (Linux; Android 7.0; Nexus 6P Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.98 Mobile Safari/537.36' );
+testUAstring( 'Mozilla/5.0 (Linux; Android 7.0; Nexus 9 Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.98 Safari/537.36' );
+
+document.write( '<br><hr><h2>WINDOWS PHONE TEST USER AGENT STRINGS:</h2>');
+testUAstring( 'Mozilla/5.0 (compatible; MSIE 10.0; Windows Phone 8.0; Trident/6.0; IEMobile/10.0; ARM; Touch; NOKIA; Lumia 820)' );
+testUAstring( 'Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; Lumia 820) like Gecko' );
+testUAstring( 'Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; NOKIA; Lumia 930) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Mobile Safari/537.36 Edge/12.0' );
+
+document.write( '<br><hr><h2>DESKTOP BROWSER TEST STRINGS:</h2>');
+testUAstring( 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36' );
+testUAstring( 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.1 (KHTML, like Gecko) Ubuntu/10.04 Chromium/14.0.808.0 Chrome/14.0.808.0 Safari/535.1' );
 
 </script>
 </body>
