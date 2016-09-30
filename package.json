@@ -1,6 +1,6 @@
 {
   "name": "getmobileosverjs",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A bit of JavaScript to determine iOS, Android or Windows Phone OS version.",
   "main": "getMobileOSver.js",
   "scripts": {
