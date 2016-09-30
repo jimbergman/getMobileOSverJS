@@ -1,0 +1,25 @@
+{
+  "name": "getmobileosverjs",
+  "version": "1.2.0",
+  "description": "A bit of JavaScript to determine iOS, Android or Windows Phone OS version.",
+  "main": "getMobileOSver.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jimbergman/getMobileOSverjs.git"
+  },
+  "keywords": [
+    "ios",
+    "android",
+    "windowsphone",
+    "osversion"
+  ],
+  "author": "Jim Bergman <jedbergman@gmail.com> (http://jimbergman.net)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jimbergman/getMobileOSverjs/issues"
+  },
+  "homepage": "https://github.com/jimbergman/getMobileOSverjs#readme"
+}
